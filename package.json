@@ -1,23 +1,22 @@
 {
   "author": "Chris Kimpton <chris@kimptoc.net> (http://kimptoc.net/)",
-  "name": "rssfeed-local",
-  "description": "RSSFeed API for a local browser storage client",
+  "name": "rssfeed-feedwrangler",
+  "description": "Node library for accessing http://feedwrangler.net/ rss feed",
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kimptoc/rssfeed-node-local.git"
+    "url": "https://github.com/kimptoc/rssfeed-node-feedwrangler.git"
   },
-  "main": "lib/rssfeed-local.js",
+  "main": "lib/rssfeed-feedwrangler.js",
   "bin": { "rssfeed": "./bin/rssfeed" },
   "scripts": {
     "test": "make test"
   },
   "engines": {
-    "node": ">= 0.8.0"
+    "node": ">= 0.10.0"
   },
   "dependencies": {
-    "node-localstorage":"*",
-    "store":"git://github.com/marcuswestin/store.js.git"
+      "request":"git://github.com/kimptoc/request.git"
     },
   "devDependencies": {
     "nodeunit": "*",
@@ -29,12 +28,13 @@
   },
   "keywords": [
     "rss",
-    "feed"
+    "feed",
+    "feedwrangler"
   ],
   "readmeFilename": "README.md",
-  "gitHead": "2076f9248b04f668ba72f88aaabea6978f2a6767",
+  "gitHead": "",
   "bugs": {
-    "url": "https://github.com/kimptoc/rssfeed-node-local/issues"
+    "url": "https://github.com/kimptoc/rssfeed-node-feedwrangler/issues"
   },
   "directories": {
     "test": "test"
