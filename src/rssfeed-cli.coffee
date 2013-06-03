@@ -9,15 +9,17 @@ repl_eval = (cmd, context, filename, callback) ->
   # console.log("You typed:"+JSON.stringify(cmd_tweaked))
   result = undefined
   if (context.handler? and context.handler[cmd_to_call]?) 
-    res = context.handler[cmd_to_call](cmd_array)
+    context.handler[cmd_to_call] cmd_array, (res) ->
+      console.log(res) if res?
+      callback(null, result)
   else
     try 
       res = eval(cmd_tweaked)
+      console.log(res) if res?
+      callback(null, result)
     catch e
       console.log "ERROR:"+e
       console.log(rssfeed_cli_handler.help()) if rssfeed_cli_handler?.help?
-  console.log(res) if res?
-  callback(null, result)
 
 console.log(rssfeed_cli_handler.help()) if rssfeed_cli_handler?.help?
 

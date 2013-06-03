@@ -1,4 +1,4 @@
-rssfeed = require './rssfeed-local'
+rssfeed = require './rssfeed-feedwrangler'
 
 class RssFeedCliHandler
   
@@ -14,25 +14,27 @@ class RssFeedCliHandler
       " *) login\n"
 
 
-  feeds: ->
+  feeds: (args, callback) ->
     # console.log "feeds: TODO"
     result = ""
     index = 1
     rssfeed.feeds (err, list) ->
+      # console.log "err:#{err}, list:#{list.length}"
       if list?
         for item in list
-          result += "#{item.key}) #{item.feed_url}\n"
+          result += "#{index}) #{item.feed_url}\n"
+          # console.log "...#{result}"
           index++
       else
         result = "No feeds"
-    return result
+      callback?(result)
 
-  feed: (args) ->
+  feed: (args, callback) ->
     sub_cmd = args.shift()
     if sub_cmd? and this[sub_cmd]?
-      return this[sub_cmd](args)
+      this[sub_cmd] args, callback
     else
-      return "Unrecognised 'feed' sub-command: #{sub_cmd}"
+      callback("Unrecognised 'feed' sub-command: #{sub_cmd}")
 
   clear: (args) ->
     sub_cmd = args.shift()
@@ -48,5 +50,14 @@ class RssFeedCliHandler
         return "ERROR adding: #{args[0]}: #{err}"
       else
         return "added: #{args[0]}"
+
+  login: (args, callback) ->
+    user = args[0]
+    pass = args[1]
+    rssfeed.login user, pass, (err) ->
+      if err?
+        callback("ERROR logging in: #{args[0]}: #{err}")
+      else
+        callback("logged in: #{args[0]}")
 
 module.exports = new RssFeedCliHandler()
