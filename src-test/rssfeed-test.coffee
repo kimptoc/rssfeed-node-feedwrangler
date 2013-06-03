@@ -45,3 +45,13 @@ describe 'rssfeed', ->
           rssfeed.feeds (err, feeds) ->
             feeds.length.should.equal 1
             done()
+
+    it 'add two feeds', (done) ->
+      rssfeed.clear()
+      rssfeed.setRequiresLogin(false)
+      #TODO - not a valid feed, a real backend would probably reject this...
+      rssfeed.add 'http://blahblah1', (err) ->
+        rssfeed.add 'http://blahblah2', (err) ->
+          rssfeed.feeds (err, feeds) ->
+            feeds.length.should.equal 2
+            done()
